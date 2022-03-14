@@ -66,9 +66,7 @@
 \textwidth 6.65in
 \linespread{1.2}
 
-\title{Classification of Companies in Agri-Food Sector based on Collected Web Pages 
-%Agriculture-food and no agriculture food industry classification of the collected web pages of the federally incorporated companies
-}
+\title{Agriculture-food and no agriculture food industry classification of the collected web pages of the federally incorporated companies}
 
 \author{Hao Yu Zhang  \\
 	University Of Montreal  \\
@@ -124,25 +122,13 @@ Worked under professor Sandra Schillo(University of Ottawa)}
 
 
 
-There are about one million federally incorporated companies in Canada, for which only basic corporate information, such as name and address is available publicly. However, there is little additional information, in particular information pertaining to the company’s activities or industry sector is not publicly available. We don’t have much information on what they do. This lack of industry information severely limits the usability of public information on companies, as many analyses depend on sector-specific knowledge. 
+There are about one million federally incorporated companies in Canada, for which basic corporate information, such as name and address is available publicly. However, there is little additional information, in particular information pertaining to the company’s activities or industry sector is not publicly available. and we don’t have much information on what they do. This lack of industry information severely limits the usability of public information on companies, as many analyses depend on sector-specific knowledge. 
 
 
-Thus, the goal of this project is to develop a method to identify industry activities of companies. We use the public information of companies as a starting point, and aim to collect additional information from their websites. To do this, we have to develop a tool to determine the potential website of a company automatically, then downloading the webpages from it. The set of webpages collected from a website is used to classify the activities of the company following the standard North American Industry Classification System (NAICS).  The whole process is able to enhance the description about a company by adding the following information:
-\begin{itemize}
-    \item the corporate website;
-    \item the set of webpages;
-    \item the NAICS classification; code for the comapany.
-\end{itemize}
+Thus, the goal of this project is to develop a method to identify industry activities of companies, using only the public information of companies as a starting point, augmenting the data by adding corporate URLs and downloading the text from the corporate web sites, and then classifying companies by their activities, following the standard North American Industry Classification System (NAICS). To develop this method, this project focuses on the agri-food sector, refining the model to recognize related activities, and linking with a larger project exploring the sectors’ companies and activities. 
 
-%refining the model to recognize related activities, and linking with a larger project exploring the sectors’ companies and activities. 
-In this internship, we focus on the agri-food sector, which could be extended to other sectors in the future.
  
-In this report, we describe the processes we implemented during the internship, from May 2021 to December 2021. We will describe the following processes:
-\begin{itemize}
-    \item determining the website of a company;
-    \item collecting the webpages;
-    \item classification of the company into NAICS classification system.
-\end{itemize}
+
 
 
 % The two technologies is essential towards information retrieval and information  understanding. We will be focusing on develop specific tools in those area to solve our problem. The report is organized as follow.  In sections \ref{Information about the organization} We introduce our company and a bit of its history.  In sections \ref{section-Objectives of the project pursued during the internship and work required} We state our objective of the internship.  In Section \ref{section-applications} We describe some applications of Tverberg's theorem.  Finally, in Section \ref{section-spaces} We present Tverberg-type results where the settings have changed dramatically, such as Tverberg for convexity spaces or quantitative versions.  In that last section, We focus mostly on results which are related to geometry.
@@ -164,11 +150,11 @@ In this report, we describe the processes we implemented during the internship, 
 
 % We are doing an internship as part of the graduation requirement for our computer science master's diploma. In our internship. In more detail, 
 
-We have a list of registered company names and addresses, and we want to find the company's web page by navigating through the internet starting from Google.com. If we were to do it manually, we would search the company name in Google, and we would examine each of the returned results one by one to see if the returned web page could be the company's web page. However, this is a very time-consuming task. Therefore, we want to do this automatically and accurately to have a list of company web pages and their content at the end of the day. The content of the web pages will help us determine the company's industry, and we are interested in finding agri-food related companies. So we will build another program that will classify the industry company based on the information on their corresponding web pages and use it to classify the company web pages that we found.
+We have a list of registered company names and addresses, and we want to find the company's web page by navigating through the internet starting from Google.com. If we were to do it manually, we would search the company name in Google, and we would examine each of the returned results one by one to see if the returned web page could be the company's web page. However, this is a very time-consuming task. Therefore, we want to do this quickly and accurately to have a list of company web pages and their content at the end of the day. The content of the web pages will help us determine the company's industry, and we are interested in finding agri-food related companies. So we will build another program that will classify the industry company based on the information on their corresponding web pages and use it to classify the company web pages that we found.
 So we can break our task into two parts, data augmentation and classification.
 
 \begin{enumerate}
-    \item Data augmentation: We have a list of federally incorporated company names, and we need to write a web crawler to collect the web pages and contact information of those companies. We need first to do a Google search and analyze the top results to see if the website can correspond to the company for this task. We will use heuristics such as the similarity between company name and URL and the company's contact information on the web page to determine whether the web page corresponds to that of the company. We will store all of the collected data in a MongoDB database.
+    \item Data augmentation, we have a list of federally incorporated company names, and we need to write a web crawler to collect the web pages and contact information of those companies. We need first to do a Google search and analyze the top results to see if the website can correspond to the company for this task. We will use heuristics such as the similarity between company name and URL and the company's contact information on the web page to determine whether the web page corresponds to that of the company. We will store all of the collected data on a MongoDB database.
     
     \item Classification:  We will train a classifier from a training data set. This classifier will help us determine if the web page of a company is agri-food related or not. The training data are either given or collected from the internet with a crawler program that we develop. We will compare several classification algorithms for their accuracy ranging from traditional to deep learning methods. We will then use our best model to classify the web pages we found in our task's first part. 
 \end{enumerate}
@@ -177,7 +163,7 @@ So we can break our task into two parts, data augmentation and classification.
 
 
 \section{Timeline}
-We started working in May 2021. We devoted the first month to understanding the basics of web scrapping and MongoDB database by learning the necessary python libraries devoted to web scrapping and connecting to a MongoDB database. We had prior experience with writing HTML code, so we were comfortable with understanding how HTML work, and that helped us quickly learn how to write a small scrapping program. We devoted the next two months to making and improving our scrapping program to scrape the web page's content of the list of federally incorporated companies. Then for the later three months, we focused on implementing, testing and comparing classification models to distinguish the agri-food companies from the non-agri-food companies. Then near the end of our internship, we used our best model to classify the industries of the web pages that our scrapping program scraped. The figure ~\ref{fig:16} shows our timeline.
+We started working in May 2021. We devoted the first month to understanding the basics of web scrapping and MongoDB database by learning the necessary python libraries devoted to web scrapping and connecting to a MongoDB database. We had prior experience with writing HTML code, so We were comfortable with understanding how HTML work, and that helped us quickly learn how to write a small scrapping program. We devoted the next two months to making and improving our scrapping program to scrape the web page's content of the list of federally incorporated companies. Then for the later three months, we focused on making, testing and comparing classification models to distinguish the agri-food companies from the no-agri-food companies. Then near the end of our internship, we used our best model to classify the industries of the web pages that our scrapping program scraped. The figure ~\ref{fig:16} shows our timeline.
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.6]{cap37.jpg}}
   \caption{Time line of the internship}
@@ -186,7 +172,7 @@ We started working in May 2021. We devoted the first month to understanding the 
 
 
 
-\section{Work environment (Data and Resources)}
+\section{Work environment(Data and Resources)}
 % Although the University of Ottawa resides in Ottawa, We did the internship remotely and participated in the meetings via online conference. our work is part of a project funded by MITACS that involves the business data of federally and provincially incorporated companies. During the internship, We worked alone and participated in the weekly meeting to update on the project. For the six-month duration of our internship, We focused on two things: web search and machines-learning-based classification. We document our progress frequently and focus on improving our results. 
 
 \subsection{Data sets}
@@ -199,23 +185,23 @@ We now present the datasets we collected and how we used them in the project.
   \label{fig:fed_company_stat_can_webpage}
 \end{figure}
 
-The downloaded file is in XML format as we can see in the figure ~\ref{fig:fed_incorporated_company_xml}. We need to extract the information of the company from the XML code. We extracted the current address, the previous addresses, the company id, the corporation id, the current name and the previous names of the company. We saved all this information in a JSON file that the scrapping program will use. 
+The downloaded file is in XML format as We can see in the figure ~\ref{fig:fed_incorporated_company_xml}. We need to extract the information of the company from the XML code. We extracted the current address, the previous addresses, the company id, the corporation id, the current name and the previous names of the company. We saved all this information in a JSON file that the scrapping program will use. 
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.35]{cap30.jpg}}
   \caption{The downloaded list of federal incorporated companies}
   \label{fig:fed_incorporated_company_xml}
 \end{figure}
 
-We devotedly wrote and tested a scrapping program to search for company URLs for the 1 million federally incorporated companies for two months. During this time, we tried several methods to help us determine if a web page is that of the company. This first version of the scrapping program only considered a company's current name and address when trying to find its web page. It would only look for the existence of the company address within the contact page, the home page and the about page of the website to determine if the web page is that of the company. We found that the solution is not perfect due to several factors. Sometimes, the program fails to scrap the visible content of the web page, or the program scrapped the wrong encoding of the text, and the result is that we scrapped incomprehensible texts.
-Further, as the scrapping lasts for a long time, when the Internet disconnects, we have a hard time keeping track of the progress of the scrapping and often need to restart searching the web page from the beginning of the company list. Hence, we rewrote the scrapping program by the end of the third month. The new program used past company names and addresses and would check web pages from all hyperlinks of the home page to check for one of the company addresses to determine if the web page belongs to the company. The new version is robust to sudden interruption of execution. When the internet disconnect, we need to rerun the program, and it will restart from where it left off. The second scrapping program is continuously running to gather information on the 1 million federally incorporated companies until the end of the internship. 
+We devotedly wrote and tested a scrapping program to search for company URLs for the 1 million federally incorporated companies for two months. During this time, We tried several methods to help us determine if a web page is that of the company. This first version of the scrapping program only considered a company's current name and address when trying to find its web page. It would only look for the existence of the company address within the contact page, the home page and the about page of the website to determine if the web page is that of the company. We found that the program is not perfect due to implementation detail. Sometimes, the program fails to scrap the visible content of the web page, or the program scrapped the wrong encoding of the text, and the result is that We scrapped incomprehensible texts.
+Further, when the Internet disconnects, We have a hard time keeping track of the progress of the scrapping and often need to restart searching the web page from the beginning of the company list. Hence, We rewrote the scrapping program by the end of the third month. The new program used past company names and addresses and would check web pages from all hyperlinks of the home page to check for one of the company addresses to determine if the web page belongs to the company. The new version is robust to sudden interruption of execution. When the internet disconnect, We need to rerun the program, and it will restart from where it left off. The second scrapping program is continuously running to gather information on the 1 million federally incorporated companies until the end of the internship. 
  
-\item \textbf{CLEARBIT dataset}: Our first program to find company web pages used a freely available online API service from CLEARBIT.com that provided a list of companies with their web page and logo picture and whose name contains the query to the API. We scraped a set of companies with their web pages with this API service. We stored the scrapped data in the school MongoDB server, and this data provided us with a list of web pages for us to understand how to write our scrapping program to scrap the content of those web pages and store the scrapped information on the MongoDB server. We then wrote a scrapping program to scrap the content of a subset of the Clearbit webpages and stored them in the school's MongoDB database. 
+\item \textbf{CLEARBIT dataset}: Our first program to find company web pages used a freely available online API service from CLEARBIT.com that provided a list of companies with their web page and logo picture and whose name contains the query to the API. We scraped a set of companies with their web pages with this API service. We stored the scrapped data in the school MongoDB server, and this data provided us with a list of web pages for us to understand how to write our scrapping program to scrap the content of those web pages and store the scrapped information on the MongoDB server. We then wrote a scrapping program to scrap the content of a subset of the Clearbit webpages and stored them in the school MongoDB database. 
 
-\item \textbf{SICCODE dataset}: The Clearbit dataset did not have the companies' industry labels, but we needed some labelled training data for industry classification. We found a company database accessible via URL SICCODE.com. In SICCODE.com, the company list comes with an industry label using the North American Industry Classification System (NAICS). However, the companies' web page was missing. So we wrote a scrapping program to search for the company web page in Google. We scraped about 10 000 company web pages from SICODE.com, whose NAICS label is four digits and stored them in the school MongoDB database.  
+\item \textbf{SICCODE dataset}: The Clearbit dataset did not have the companies' industry labels, but we needed some labelled training data for industry classification. We found a company database accessible via URL SICCODE.com. In SICCODE.com, the company list comes with an industry label using the North American Industry Classification System(NAICS). However, the companies' web page was missing, so we wrote a scrapping program to search for the company web page in Google. We scraped about 10000 company web pages from SICODE.com, whose NAICS label is four digits and stored them in the school MongoDB database.  
 
 
 \item \textbf{LODE dataset(with NAICS label)}
-We were fortunate to have been provided with a list of company web pages labelled with the 6 digits NAICS code. This dataset is in the LODE Github repository accessible in this \href{https://github.com/CSBP-CPSE/LODE-ECDO/tree/master/sources/Business/on}{URL}. All we needed to do to make this a good training set for our classification program was to scrap the content of the provided web pages. Simply scrapping the web page's content is much simpler than if we were also to find the companies' web page. Hence, we build this dataset in a short period of time. 
+We were fortunate to have been provided with a list of company web pages labelled with the 6 digits NAICS code. This dataset is in the LODE Github repository accessible in this \href{https://github.com/CSBP-CPSE/LODE-ECDO/tree/master/sources/Business/on}{URL}. All we needed to do to make this a good training set for our classification program was to scrap the content of the provided web pages. Simply scrapping the web page's content is much simpler than if we were also to find the companies' web page. Hence, we build this dataset in a concise amount of time. 
 
 \end{itemize}
 
@@ -235,7 +221,7 @@ see figure ~\ref{fig:25} and figure  ~\ref{fig:26}.
 
 
 \subsection{Resources / Technology Stack}
-We used the Python programming language to develop the scrapping programs and train the classification models for our project. For the scrapping program, we used the Beautifulsoup, Requests, Urllib libraries to write the codes to get the content of the web pages. We used the MongoDB database to store all the scrapped data. We used the Pymongo library to connect our program to the MongoDB server. We used the Sklearn library to create the classical classification models such as SVM or random forest. We used the Huggingface library to use more state-of-the-art pre-trained transformer-based natural language models such as BERT or XLNET and fine-tune the models using the scrapped web pages. It was easy to find tutorials on Google about using Python or MongoDB or Hugging face Libraries. We can often find prewritten codes on how to perform a specific task and adjust those codes for our particular goal. 
+We used the Python programming language to develop the scrapping programs and train the classification models for our project. For the scrapping program, we used the Beautifulsoup, Requests, Urllib libraries to write the codes to get the content of the web pages. We used the MongoDB database to store all the scrapped data. We used the Pymongo library to connect our program to the MongoDB server. We used the Sklearn library to create the classical natural language models such as SVM or random forest. We used the Huggingface library to make more state of the arts pre-trained transformer-based natural language models such as BERT or XLNET and fine-tune the models using the scrapped web pages. It was easy to find tutorials on Google about using Python or MongoDB or Hugging face Libraries. We can often find prewritten codes on how to perform a specific task and adjust those codes for our particular goal. 
 
 % \section{Presentation of the designed systems and their integration into the work environment, technical problems encountered and their resolution}
 
@@ -261,21 +247,21 @@ We used the Python programming language to develop the scrapping programs and tr
 
  
  The goal of the scrapping program is to find the web page of a company given its name and scrap information on the web page, and store the scrapped information in a database to be used for industry classification.\\\\
-We now explain the scrapping programs that we used to search on Google for the company web page.  The program has been changed over and over by noticing the flaw of the program and fixing them. There are freely available APIs such as Clearbit.com that provide the URL of a company given its name. However, the APWe service is for commercial purposes and does not always contain the information of the companies that we are interested in. We need to develop a scraping program that will find the company web page for us. 
+We now explain the scrapping programs that we used to search on Google for the company web page.  The program has been changed over and over by noticing the flaw of the program and fixing them. There are freely available APIs such as Clearbit.com that provide the URL of a company given its name. However, the APWe service is for commercial purposes and does not always contain the information of the companies that We are interested in. We need to develop a scraping program that will find the company web page for us. 
 
-What we do first is a Google search for the name of the company. The search is done using the Google python library that is available to use by installing it via
+What We do is to first do a Google search for the name of the company. The search is done using the Google python library that is available to use by installing it via
 \begin{lstlisting}
 pip install google 
 \end{lstlisting}
 
-An alternative way to perform a Google search is to use the Google search APWe by setting up a Google account. Both options are valid, but we found that using Google API, sometimes, if we make too many requests using Google search API, the service will be no longer available, and we may or may not have the service working even if we wait for it for a while. Hence, for our purpose, we found that the google library can do the job well, and we used it in our final scrapping program. An example of Google search for using the installed Google library can be seen in figure ~\ref{fig:google_search}:
+An alternative way to perform a Google search is to use the Google search APWe by setting up a Google account. Both options are valid, but We found that using Google API, sometimes, if We make too many requests using Google search API, the service will be no longer available, and We may or may not have the service working even if We wait for it for a while. Hence, for our purpose, We found that the google library can do the job well, and We used it in our final scrapping program. An example of Google search for using the installed Google library can be seen in figure ~\ref{fig:google_search}:
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.6]{google_seach.JPG}}
   \caption{Performing a Google search in python for the term  agriculture company and get the first 6 results}
   \label{fig:google_search}
 \end{figure}
 
-With Google search available, we then search the name of the company with Google search and then the first $6$ results of the Google search will be analyzed.  We examine the returned URLs and keep track of the frequently returned web URLs. These commonly returned web pages are other form of search engine that has a database of companies. These web pages are not the web page of the search company but contains the information of the search company. We keep track of these kind of web pages and made a list of them. These will be the list of bad URLs. 
+With Google search available, We then search the name of the company with Google search and then the first $6$ results of the Google search will be analyzed.  We examine the returned URLs and keep track of the frequently returned web URLs. These commonly returned web pages are other form of search engine that has a database of companies. These web pages are not the web page of the search company but contains the information of the search company. We keep track of these kind of web pages and made a list of them. These will be the list of bad URLs. 
 We can refer to figure ~\ref{fig:8} for the flow of the scrapping program: 
 
 \begin{figure}[h!]
@@ -286,24 +272,22 @@ We can refer to figure ~\ref{fig:8} for the flow of the scrapping program:
 
 In the figure, each of the six outputs URLs of the Google search is first compared with URLs in the list of bad URLs. If the URL is in the list of bad URLs, then it will not be considered further.  The list of bad URLs is continuously built and gradually increases in size. They make the recognition of the correct company web page more efficient because the complicated and time-consuming checks that need to be done can be reduced by checking if the returned Google search web page is in the list or not. 
 
-A problem that we encountered is that requesting a web page using a program may not always succeed, and sometimes, the program halt and wait for a response from the web page hosting service. our internet connection is weak, and these two problems caused us much time scraping the web pages. The solution to this problem is to increase the number of programs to scrap the web page. For this part, we got four computers to scrap the web pages and several programs running simultaneously. We made several Google accounts to use the Google Colab to help us, and each program is responsible for part of the list of federally incorporated companies. 
+A problem that We encountered is that requesting a web page using a program may not always succeed, and sometimes, the program halt and wait for a response from the web page hosting service. our internet connection is weak, and these two problems caused us much time scraping the web pages. The solution to this problem is to increase the number of programs to scrap the web page. For this part, We got four computers to scrap the web pages and several programs running simultaneously. We made several Google accounts to use the Google Colab to help us, and each program is responsible for part of the list of federally incorporated companies. 
 
-To check whether a web page is that of the company, our first idea is to check if the web page's contact section contains the company's address; if so, we are very confident that the web page is that of the company. However, this method only finds a tiny percent of company web pages, and we need to have additional ways to find more companies. 
+To check whether a web page is that of the company, our first idea is to check if the web page's contact section contains the company's address; if so, We are very confident that the web page is that of the company. However, this method only finds a tiny percent of company web pages, and We need to have additional ways to find more companies. our first method to see if the web page is that of the company without the use of the address check is to compute a similarity scoring between the name of the company and the URL of the web page. We consider several factors such as if the abbreviation of the company name is in the URL or the percentage of words match, or the fuzzy matching method such as the modified version of edit distance between company name and URL of the web page.  Then We gave a threshold for when a web page can be considered the web page of the company.  By then, We moved on to using a more sophisticated method such as using a transformer-based model to do a sentence similarity task between company name and URL. However, because We do not have a lot of labelled data and the company owner could give arbitrary domain names for his company, this method is eventually not used. Instead, We focused on improving the correctness and performance of the scrapping program so that it is more time-efficient and robust to internet disconnection..  
 
-Our second method to see if the web page is that of the company without the use of the address check is to compute a similarity scoring between the name of the company and the URL of the web page. We consider several factors such as if the abbreviation of the company name is in the URL or the percentage of words match, or the fuzzy matching method such as the modified version of edit distance between company name and URL of the web page.  Then we set a threshold for when a web page can be considered the web page of the company.  By then, we moved on to using a more sophisticated method such as using a transformer-based model to do a sentence similarity task between company name and URL. However, because we do not have a lot of labelled data and the company owner could give arbitrary domain names for his company, this method is eventually not used. Instead, we focused on improving the correctness and performance of the scrapping program so that it is more time-efficient and robust to internet disconnection..  
-
- There are several checks for if the web page belongs to the company. In our final version of the scrapping program, we are making sure that the version of the company name that is stripped of the "ltee", "inc.","ltd.","limited","inc","corp","ltd","corporation" is also considered. We will simply call the list ["ltee", "inc.","ltd.","limited","inc","corp","ltd","corporation"] the trailing part of a company for short. We list the checks:
+ There are several checks for if the web page belongs to the company. In our final version of the scrapping program, We are making sure that the version of the company name that is stripped of the "ltee", "inc.","ltd.","limited","inc","corp","ltd","corporation" is also considered. We will simply call the list ["ltee", "inc.","ltd.","limited","inc","corp","ltd","corporation"] the trailing part of a company for short. We list the checks:
 \begin{enumerate}
-\item We check if the company's name appears in the title of the web page. This check is done by seeing if the lowercased company name and the version where we stripped its trailing part is a sub-string of the title string of the web home page.  
-    \item We check if the company's name in the lower case appears as a substring of the domain name of the web page in the lower case. Moreover, we do the same for the company name stripped of its trailing part as before. 
-    \item We check if the company's current address is in any of the sub-pages of the web page. This check works by extracting the ZIP code and the numerical part of the address using already available python regular expressing packages. Then we check if the ZIP code in its different format and the numerical part of the address both appear as a substring of the content string of each of the sub-pages of the web page. We only check for the linked sub-pages of the website's main page and not the distance of two or more hyperlinks from the main page.
-    \item We check if any of the previous company addresses appears in any of the sub-pages of the web page. It is the same procedure for checking if the current company address is in any of the content of the website's sub-pages. 
-    \item  Here, the company name is first split into words, and then the first letter of each word is grouped to form the abbreviation of the company name. We check if the abbreviation of the company name matches the domain name of the URL perfectly. Then we check if the abbreviation string matches the domain name of the URL perfectly. 
+\item We check if the company's name appears in the title of the web page. This check is done by seeing if the lowercased company name and the version where We stripped its trailing part is a sub-string of the title string of the web home page.  
+    \item We check if the company's name in the lower case appears as a substring of the domain name of the web page in the lower case. Moreover, We do the same for the company name stripped of its trailing part as before. 
+    \item We check if the company's current address is in any of the sub-pages of the web page. This check works by extracting the ZIP code and the numerical part of the address using already available python regular expressing packages. Then We check if the ZIP code in its different format and the numerical part of the address both appear as a substring of the content string of each of the sub-pages of the web page. We only check for the linked sub-pages of the website's main page and not the distance of two or more hyperlinks from the main page.
+    \item We check any of the previous company addresses appears in any of the sub-pages of the web page. It is the same procedure for checking if the current company address is on any of the content of the website's sub-pages. 
+    \item  Here, the company name is first split into words, and then the first letter of each word is grouped to form the abbreviation of the company name. We check if the abbreviation of the company name matches the domain name of the URL perfectly. Then We check if the abbreviation string matches the domain name of the URL perfectly. 
     \item We check if the company name and the company name without the trailing part are a complete match with the domain name of the URL. We check if the company name, after removing all delimiter characters, would match the domain name of the URL perfectly.  
 \end{enumerate}
- We are pretty sure that if the current company address or the previous company addresses appear in some sub-page of the home page of the web page or that there is a perfect match between the company name and the URL or there is a perfect match between the abbreviation of the company name and the URL, then that web page is that of the company. For the case  where the company name appears in the title of the web page or that the company name appears in the URL of the web page, we will keep them as well, but we will not be $100$ percent sure that they are the web page of the company. 
+ We are pretty sure that if the current company address or the previous company addresses appear in some sub-page of the home page of the web page or that there is a perfect match between the company name and the URL or there is a perfect match between the abbreviation of the company name and the URL, then that web page is that of the company. For the case of when the company name appears in the title of the web page or that the company name appears in the URL of the web page, We will keep them as well, but We will not be $100$ percent sure that they are the web page of the company. 
  
- Another main problem that we have to deal with is deciding what information from the web page we need to scrap. From previous work in this area, we found that the title, description and keywords of the web page are very useful in helping determine the nature of the web page. With the guidance from our supervisors, we decided to scrap several sub-pages such as the about page and the product page to help us with our industry classification task. The following are the information that we noted for each web page:
+ Another main problem that We have to deal with is deciding what information from the web page We need to scrap. From previously done work in this area, We found that the title, description and keywords of the web page are very useful in helping determine the nature of the web page. With the guidance from our supervisors, We decided to scrap several sub-pages such as the about page and the product page to help us with our industry classification task. The following are the information that We noted for each web page:
  \begin{enumerate}
      \item The current company name
      \item The previous company names
@@ -330,9 +314,9 @@ Our second method to see if the web page is that of the company without the use 
      \item whether the abbreviation of the search name is in the domain name of the web page. 
      \item Whether the search name is in the domain name of the web page. 
  \end{enumerate} 
- We find those sub-pages by examining all of the home page's $<a>$ tags. We will check the sub-page if the $<a>$ tag content contains the appropriate keywords. For example, if the content of an $<a>$ tag is ``contact us" or ``contact" or ``reach us," then we will think that the hyperlink for that $<a>$ tag will lead us to the contact page of the website and we will scrap the content of that web page and make it the contact page of the website. We put two figures showing our scrapped result and we can see in the figures that our scrapping program is successful. See ~\ref{fig:scraped_federally_incorporated_company_detail} and figure ~\ref{fig:scraped_federally_incorporated_company_list}.
+ We find those sub-pages by examining all of the home page's $<a>$ tags. We will check the sub-page if the $<a>$ tag content contains the appropriate keywords. For example, if the content of an $<a>$ tag is "contact us" or "contact" or"reach us," then We will think that the hyperlink for that $<a>$ tag will lead us to the contact page of the website and We will scrap the content of that web page and make it the contact page of the website. We put two figures showing our scrapped result and we can see in the figures that our scrapping program is successful. See ~\ref{fig:scraped_federally_incorporated_company_detail} and figure ~\ref{fig:scraped_federally_incorporated_company_list}.
  
- \textcolor{red}{We selected 100 random samples and examine their correctness manually. The correctness of the web pages for a given company is 93\%.} This success rate is considered satisfactory by domain experts.
+ \textcolor{red}{We selected 100 random samples and examine their correctness. The correctness of the web pages for a given company is 93\%.} 
  
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.8]{cap43.jpg}}
@@ -347,27 +331,24 @@ Our second method to see if the web page is that of the company without the use 
 \end{figure} 
 
 
-\section{Classificatiopn of agriculture-food and non-agriculture-food  companies}
-The goal now is to classify a company into the corresponding industry sector using the collected web pages. To this end, we will use text classification models.
-
-\subsection{Classification models}
-We have used several approaches for the industry classification task in the project. We will explain each of the methods involved and compare the results. The tests are done on a set of NAICS labelled data that we have about 3159 web pages labelled with the six digits NAICS code. 
-We experimented with those data, including about 150 agriculture web pages that we scrapped from SICCODE.com. The description of the testing data can be seen in the figure:
+\section{agriculture-food no agriculture food  classification}
+\subsection{classification models}
+We have used several approaches for the industry classification part of the project. We will explain each of the methods involved and compare the results. The tests are done on a set of NAICS labelled data that We have about 3159 web pages labelled with the six digits NAICS code . 
+We experimented with those data, including about 150 agriculture web pages that We scrapped from SICCODE.com. The description of the testing data can be seen in the figure:
 
 
-The classification methods we explored are as follow:
+The classification methods are as follow:
 
 \begin{enumerate}
-\item  We first present an unsupervised learning method. This method primarily uses keywords and short sentences (usually two or three words) for classification. See figure ~\ref{fig:keywords_classification_flow} for illustration.  For the classification task, we need a list of definitions for each classification class. These definitions are the NAICS definitions and NAICS examples from the statistics of Canada web page. Hence making the model understand the NAICS definition and NAICS examples is of great importance when doing classification. 
+\item  We first present an unsupervised learning method. This method primarily uses keywords and short sentences(usually two or three words) for classification. See figure ~\ref{fig:keywords_classification_flow} for illustration.  For the classification task, We need a list of definitions for each classification class. These definitions are the NAICS definitions and NAICS examples from the statistics of Canada web page. Hence making the model understand the NAICS definition and NAICS examples is of great importance when doing classification. 
 
-We want our program first to classify the web page using two digits NAICS code. This way, we would be able to say whether the company web page is agriculture-related or not by seeing if the predicted label is $11$ or not -- The NAICS $11$ code is the NAICS code for the agriculture industry. Then we move on to do a more refined classification to give a more refined label for the company web page. 
+We want our program first to classify the web page using two digits NAICS code. This way, We would be able to say whether the company web page is agriculture-related or not by seeing if the predicted label is $11$ or not. The NAICS $11$ code is the NAICS code for the agriculture industry. Then We move on to do a more refined classification to give a more refined label for the company web page. 
 
-For the part where we determine the two digits NAICS code label of the web page, we use a list of keywords and short sentences for the industry. The basis of the keywords is the NAICS examples and the selected keywords extracted using TF-IDF score on the NAICS definition and examples. The set of keywords and short sentences are further enlarged by manually selecting texts from the analysis of some of the labelled webpages. The built keywords and short sentences are in a python dictionary where the key is the $2$ digits NAICS code, and the value is a list of keywords or short sentences associated with that NAICS code. We used these keywords and short sentences by either counting their occurrences in the web page content or performing a semantic comparison with the web page content using a language model. 
+For the part where We determine the two digits NAICS code label of the web page, We use a list of keywords and short sentences for the industry. The basis of the keywords is the NAICS examples and the selected keywords extracted using TF-IDF score on the NAICS definition and examples. The set of keywords and short sentences are further enlarged by manually selecting texts from the analysis of some of the labelled webpages. The built keywords and short sentences are in a python dictionary where the key is the $2$ digits NAICS code, and the value is a list of keywords or short sentences associated with that NAICS code. We used these keywords and short sentences by either counting their occurrences in the web page content or performing a semantic comparison with the web page content using a language model. 
 
-More specifically, we check if there is a good amount of text in the description of the webpage, the title of the web page. If there is a sufficient amount of text, usually more than a word in them, we will see how many of those words are in the set of keywords for our 2-digits NAICS code. For a keyword of length 1, we match it against a list of words after separating the title and description and URL and company name into a list of single words. Instead, we will check for their inclusion in the web page's description and title for short key sentences. 
-Then we pick the 2-digits NAICS code with the most matched keywords as the 2-digits NAICS code for that company web page. 
+More specifically, We check if there is a good amount of text in the description of the webpage, the title of the web page. If there is a sufficient amount of text, usually more than a word in them, We will see how many of those words are in the set of keywords for our 2-digits NAICS code. For a keyword of length 1, We match it against a list of words after separating the title and description and URL and company name into a list of single words. Instead, We will check for their inclusion in the web page's description and title for short key sentences. 
 
-If a company's web page is classified within the NAICS code 11, then we further determine more digits of the NAICS code for it. To this end, we will use a transformer-based method. We first encode each sentence in the NAICS description and examples into a 768-dimensional vector using a pre-trained transformer model called paraphrase-mpnet-v2 from the python's Huggingface library that provides many state-of-the-art transformer-based language models. Then we also encode the company's name, the web page description, and the web page's title into a 768-dimensional vector. We then do a cosine similarity computation between the encoded web page title and description with all the encoded NAICS definitions and examples. We also compute the similarity between the web page's title with the company name and the web page's description with the company's name. Then for each title and description, we multiply the result of their similarity score with the NAICS definition with their similarity score with the company's name. Hence we would get a list of NAICS definitions and examples and their similarity scoring with both the title and description of the web page.  We look at the top $10$ scored sentences and pick the most frequent NAICS code associated with the ten sentences as the NAICS code for that web page. We illustrate the last step in figure ~\ref{fig:29-1}. 
+Then We pick the 2-digits NAICS code with the most matched keywords as the 2-digits NAICS code for that company web page. To determine more digits of the NAICS code, We first encode each sentence in the NAICS description and examples into a 768-dimensional vector using a pre-trained transformer model called paraphrase-mpnet-v2 from the python's Hugging face library that provides many states of the art transformer-based language models. Then We also encode the company's name, the web page description, and the web page's title into a 768-dimensional vector. We then do a cosine similarity computation between the encoded web page title and description with all the encoded NAICS definitions and examples. We also compute the similarity between the web page's title with the company name and the web page's description with the company's name. Then for each title and description, We multiply the result of their similarity score with the NAICS definition with their similarity score with the company's name. Hence We would get a list of NAICS definitions and examples and their similarity scoring with both the title and description of the web page.  We look at the top $10$ scored sentences and pick the most frequent NAICS code associated with the ten sentences as the NAICS code for that web page. We illustrate the last step in figure ~\ref{fig:29}. 
     
      
 \begin{figure}[h!]
@@ -379,7 +360,7 @@ If a company's web page is classified within the NAICS code 11, then we further 
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.6]{cap51.JPG}}
   \caption{The sentence comparison part of keyword method}
-  \label{fig:29-1}
+  \label{fig:29}
 \end{figure} 
     
     
@@ -458,22 +439,20 @@ If a company's web page is classified within the NAICS code 11, then we further 
     %     \end{cases}$$
         
     % \end{enumerate}
-    \item The method we used here is a deep learning method for text classification. We have used the pre-trained BERT ~\cite{Eckhoff:1979bi} model and pre-trained XLNET~\cite{Eck93survey} model and fine-tuned them on a training set. The URL for the BERT and the XLNET model can be found \href{https://arxiv.org/abs/1810.04805v2}{here} and \href{https://arxiv.org/abs/1906.08237v2}{here}. We chose the BERT model because it was the state-of-the-art model when it first came out and beat the previous state-of-the-art models in several natural language processing tasks.  The XLNET model was an improvement over the BERT model because it beat the BERT model in several natural language processing tasks.  
+    \item The method We used here is a text classification deep learning method. We have used the pre-trained BERT ~\cite{Eckhoff:1979bi} model and pre-trained XLNET~\cite{Eck93survey} model and fine-tuned them on a training set. The URL for the BERT and the XLNET model can be found \href{https://arxiv.org/abs/1810.04805v2}{here} and \href{https://arxiv.org/abs/1906.08237v2}{here}. We chose the BERT model because it was the state-of-the-art model when it first came out and beat the previous state-of-the-art models in several natural language processing tasks.  The XLNET model was an improvement over the BERT model because it beat the BERT model in several natural language processing tasks.  
     
     We now explain the architecture of the BERT model. We will explain the process of how to train a BERT model from scratch. The BERT model is based on the transformer model and is pre-trained using two training methods, masked language modelling and next sentence prediction. 
 
-For masked language modelling, we randomly select 15 percent of the tokens to be “masked". More precisely, out of the randomly selected 15 percent of the tokens, 80 percent of those would be replaced with the $[mask]$ token, 10 percent of them would be replaced by any other arbitrary token and 10 percent of them would be left unchanged. 
+For masked language modelling, We randomly select 15 percent of the tokens to be “masked". More precisely, out of the randomly selected 15 percent of the tokens, 80 percent of those would be replaced with the $[mask]$ token, 10 percent of them would be replaced by any other arbitrary token and 10 percent of them would be left unchanged. 
 
-The formula that we are trying to maximize is 
+The formula that We are trying to maximize is 
 $$logP(x_k|x-k;\theta) \approx \sum_{k\in K} logP(x_k|x-K;\theta) $$
 
-where ...
+When the sentence passes through the transformer encoder layer of the BERT model, We get an output of the shape $[BatchSize, SeqLen,EmbeddingDim]$. Then We multiply this result with a matrix of shape $[Emb_Dims, VocabSize]$ to get a distribution over all possible vocabulary that can then be used to calculate the loss.
 
-When the sentence passes through the transformer encoder layer of the BERT model, we get an output of the shape $[BatchSize, SeqLen,EmbeddingDim]$. Then we multiply this result with a matrix of shape $[Emb_Dims, VocabSize]$ to get a distribution over all possible vocabulary that can then be used to predict the masked word, and to calculate the loss.
+For the next sentence prediction, We are given two sentences, and We want the BERT model to predict whether the second sentence follows the first sentence. What We do with the two sentences is first to add a $[cls]$ token at the beginning of the first sentence and join both sentences with a $[sep]$ token and end the joined sentence with a $[sep]$ token again. Those tokens are a special token that is designed for specific purposes. 
 
-For the next sentence prediction, we are given two sentences, and we want the BERT model to predict whether the second sentence follows the first sentence. What we do with the two sentences is first to add a $[cls]$ token at the beginning of the first sentence and join both sentences with a $[sep]$ token and end the joined sentence with a $[sep]$ token again. Those tokens are a special token that is designed for specific purposes. 
-
-For training next sentence prediction, we have not only token embedding and positional embedding for each token, but also a segment embedding that is used to separate two sentences as illustrated in figure~\ref{fig:17}.: 
+For training next sentence prediction, We have not only token embedding and positional embedding for each token, but also a segment embedding that is used to separate two sentences as illustrated in figure~\ref{fig:17}.: 
 
 \begin{figure}[h!]
   \includegraphics[width=18cm]{cap39.JPG}
@@ -483,18 +462,14 @@ For training next sentence prediction, we have not only token embedding and posi
 
 The segment encoding could be $0$ for the tokens in the first sentence and $1$ for the second sentence. 
 
-By the nature of the computation of the self-attention mechanism, we know that information about the relation between the token in a sentence is computed for each token. In particular, we only need the relational information of the tokens with the first $[cls]$ token of the sentence to deduce useful information. Hence, in the output of the last transformer layer of the transformer encoder, we can use the first slice of the resulting matrix as the sole information needed to predict whether the two sentences have the correct ordering. 
+By the nature of the computation of the self-attention mechanism, We know that information about the relation between the token in a sentence is computed for each token. In particular, We only need the relational information of the tokens with the first $[cls]$ token of the sentence to deduce useful information. Hence, in the output of the last transformer layer of the transformer encoder, We can use the first slice of the resulting matrix as the sole information needed to predict whether the two sentences have the correct ordering. 
 
-With this process, the output of the last transformer layer is of size $Z : [BatchSize, SeqLen, EmbeddingDim]$ and we just need to extract from it, the information about the $[cls]$ token by $cls_vector = Z[:0,:] \in \mathbb{R}^{[BatchSize, EmbeddingDim]}$. Finally, we do a linear transform followed by a sigmoid to get a probability score for the likelihood that the two sentences make sense semantically when putting them one after the other: $\hat{y} = sigmoid(Linear(cls_vector)) \in (0,1)$.
+And so, the output of the last transformer layer is of size $Z : [BatchSize, SeqLen, EmbeddingDim]$ and We just need to extract from it, the information about the $[cls]$ token by $cls_vector = Z[:0,:] \in \mathbb{R}^{[BatchSize, EmbeddingDim]}$. Moreover, finally, We do a linear transform followed by a sigmoid to get a probability score for the likelihood that the two sentences make sense semantically when putting them one after the other: $\hat{y} = sigmoid(Linear(cls_vector)) \in (0,1)$.
 
-Now that we have explained the pretraining process of the BERT model, we will %see a small example of 
-explain how to set up the pretraining process. % for the Chines language. 
-First, we can get all the sentences of Wikipedia on a text file. We can make another txt file with pair of the sentence in the first txt file. The second text file will be used for the next sentence prediction training set. 
-Then we can get all the words in the text together with their frequency of appearance to remove words that are not very frequent. 
-After that, we need to create a dictionary that assigns tokens to an index value for token embedding lookup later on. 
+Now that We have explained the pertaining of the BERT model, We will see a small example of how to set up the pretraining process for the Chines language. First, We can get all the sentences of Wikipedia on a text file. We can make another txt file with pair of the sentence in the first txt file. The second text file will be used for the next sentence prediction training set. 
 
-To use a BERT model, we need to have several special tokens defined as follows:
-
+Then We can get all the words in the text together with their frequency of appearance to remove words that are not very frequent. 
+After that, We need to create a dictionary that assigns tokens to an index value for token embedding lookup later on. We need to have several special tokens:
 $\begin{cases}
 [PAD] \text{ used to pad a sentence to the desired length.}\\
 [UNK] \text{ used for words that are not seen before.}\\
@@ -505,10 +480,10 @@ $\begin{cases}
 \end{cases}$
 
 
-The text input to the model consists of the title, the description, the company name, the keywords, the URL of the web page, the content of the home page, the content of the about page, the content of the service page, the content of product page that we scrapped. The label is the first two digits of the six digits NAICS code. We trimmed the length of the text input to have at most 256 words due to the limitation of BERT. The total number of labels, in this case, is 25. We used 10 000 companies from the GitHub repository to fine-tune the BERT model; 10 percent were used for validation and 90 percent used for training. We then fine-tuned the model to have a validation accuracy of 58\%. A challenge to making the model more accurate is to choose what information on the web page to train the model. We used all of the information that we scraped from the web page as input to the model. It is a wrong choice of input text because sometimes, the length of the resulting text exceeds the capacity of the input requirement of the model, which is 512 tokens long. Another example of an issue is that the visible text description of the hyperlink of a web page does not contribute to determining the industry of the webpage.  Hence, we trained another model that only uses the sentences in the web page's content containing specific keywords. These keywords include the company name, "us," "we," "our." After fine-tuning the BERT model using the selected sentences only, our model has an accuracy increase of 3\%. Note that we did not select sentences from the description and the title of the web page. We think that the web page's description and title are essential in determining its industry, so we do not need to select meaningful sentences further from them. We select important sentences only from home, the about, the product and the service page of the web page. 
+The text input to the model consists of the title, the description, the company name, the keywords, the URL of the web page, the content of the home page, the content of the about page, the content of the service page, the content of product page that We scrapped. The label is the first two digits of the six digits NAICS code. We trimmed the length of the text input to have at most 256 words. The total number of labels, in this case, is 25. We used 10000 companies from the GitHub repository to fine-tune the BERT model; 10 percent were used for validation and 90 percent used for training. We then fine-tuned the model to have a validation accuracy of 58 percent. A challenge to making the model more accurate is to choose what information on the web page to train the model. We used all of the information that We scraped from the web page as input to the model. It is a wrong choice of input text because sometimes, the length of the resulting text exceeds the capacity of the input requirement of the model, which is 512 tokens long. Another example of an issue is that the visible text description of the hyperlink of a web page does not contribute to determining the industry of the webpage.  Hence, We trained another model that only uses the sentences in the web page's content containing specific keywords. These keywords include the company name, "us," "we," "our." After fine-tuning the BERT model using the selected sentences only, our model has an accuracy increase of 3 percent. Note that We did not select sentences from the description and the title of the web page. We think that the web page's description and title are essential in determining its industry, so We do not need to select meaningful sentences further from them. We select important sentences only from home, the about, the product and the service page of the web page. 
     
 
-\item We also used three traditional text classification methods. They are the Naive Bayes method, the support vector machine (SVM) method and the recurrent neural network method. For the Naive Bayes and the support vector machine method, we gave the model as input the concatenation of the company name, the title of the web page, the description of the web page and the keywords of the web page. Then we transform the input text into a vector using the Scikit-learn TF-IDF vectorizer. We did a grid search for the best hyper-parameter for the models and tested the models on the testing set. 
+\item We also used three traditional text classification methods. They are the Naive Bayes method, the support vector machine method and the recurrent neural network method. For the Naive Bayes and the support vector machine method, We gave the model as input the concatenation of the company name, the title of the web page, the description of the web page and the keywords of the web page. Then We transform the input text into a vector using the Scikit-learn TF-IDF vectorizer. We did a grid search for the best hyper-parameter for the models and tested the models on the testing set. 
 \end{enumerate}
 
 \subsection{Classification of Federally incorporated companies}
@@ -522,25 +497,25 @@ The text input to the model consists of the title, the description, the company 
      \item The frequencies of the classified NAICS are shown in figure ~\ref{fig:21} ~\ref{fig:20}，~\ref{fig:29}，~\ref{fig:39}，~\ref{fig:40}:
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{cap46.jpg}}
-          \caption{The frequency distribution of the manually labelled NAICS for the test web pages}
+          \caption{The frequency distribution of the Official labelled NAICS for the test web pages}
           \label{fig:21}
         \end{figure}
         
           \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{manual_distribution.JPG}}
-          \caption{The frequency distribution of the NAICS with the keyword method}
+          \caption{The frequency distribution of the NAICS for the keyword method}
           \label{fig:20}
         \end{figure} 
         
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{svm_grid_searched_distribution.JPG}}
-          \caption{The frequency distribution of the NAICS with the SVM method (grid searched)}
+          \caption{The frequency distribution of the NAICS for the SVM method(grid searched)}
           \label{fig:29}
         \end{figure} 
         
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{svm2_dist.JPG}}
-          \caption{The frequency distribution of the NAICS for the SVM version 2 method (grid searched)}
+          \caption{The frequency distribution of the NAICS for the SVM version 2 method(grid searched)}
           \label{fig:41}
         \end{figure} 
         
@@ -561,7 +536,7 @@ The text input to the model consists of the title, the description, the company 
      ~\ref{fig:30},~\ref{fig:31}:
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{manual_key_acc.JPG}}
-          \caption{The classification report for the classification by keyword and sentence comparison}
+          \caption{The classification report for the classification by keyword and sentence compare}
           \label{fig:27}
         \end{figure}
         
@@ -585,7 +560,7 @@ The text input to the model consists of the title, the description, the company 
         
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{svmv2_report.JPG}}
-          \caption{The classification report for the classification by SVM version 2 (grid searched)}
+          \caption{The classification report for the classification by SVM version 2(grid searched)}
           \label{fig:38}
         \end{figure}
         
@@ -597,33 +572,33 @@ The text input to the model consists of the title, the description, the company 
         
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.5]{rf_grid_searched.JPG}}
-          \caption{The classification report for the classification by random forest method (grid searched)}
+          \caption{The classification report for the classification by random forest method(grid searched)}
           \label{fig:31}
         \end{figure} 
      
  \end{enumerate}
  
- The accuracy of the models are shown in figures ~\ref{fig:35}, ~\ref{fig:36}.
+ The accuracy of the models are shown in figures ~\ref{fig:35}, ~\ref{fig:36}:
 
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.6]{keyword_Acc.JPG}}
-          \caption{The classification accuracy for agri-food and non agri-food classification with keyword method}
+          \caption{The classification accuracy for agriculture and no agriculture classification with keyword method}
           \label{fig:35}
         \end{figure} 
         
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.6]{svm_acc.JPG}}
-          \caption{The classification accuracy for agri-food and non agri-food classification with  SVM method}
+          \caption{The classification accuracy for agriculture and no agriculture classification with  SVM method}
           \label{fig:36}
         \end{figure} 
         
         \begin{figure}[h!]
           \centerline{\includegraphics[scale=0.6]{svm_acc.JPG}}
-          \caption{The classification accuracy for agri-food and non agri-food classification with  SVM version 2 method}
+          \caption{The classification accuracy for agriculture and no agriculture classification with  SVM version 2 method}
           \label{fig:37}
         \end{figure} 
 
-By comparing the results with different classification models, the best models are the one that uses BERT, as well as the unsupervised method based on words and sentence comparison between the web page and the definition of NAICS code. The two other traditional classification models -- Naive Bayes and SVM produced slightly lower effectiveness. Overall, the effectiveness seems low. However, when we manually evaluated the classification results on a set of 100 companies, the effectiveness is much higher: over 90\% of the companies have been assigned correct NAICS codes. The low effectiveness reported on the test data reported above is affected by the noise included in the manually labeled companies, which we used as test data. We discuss about this problem below.
+
 
  
  \subsection{discussion}
@@ -632,7 +607,7 @@ By comparing the results with different classification models, the best models a
     \item The labelled training data that we used to train our classification model has, in general, correct labelling for the industry. However, after examining the company where the predicted label and the given label differ, we have seen that some given labels were incorrect. Some given labels are partially correct, but some are quite different from what the company web page shows. We could assign a more justified label based on what we read on the company web page and the predicted label.  We selected two examples whose label was corrected by our model, and they are:
     
  \begin{enumerate}
-     \item  ``Derma Secret Med Spa"
+     \item  Consider the company:
 \begin{table}[h!]
 \begin{tabular}{|l|l|}
 \hline
@@ -644,9 +619,9 @@ Web page description & \begin{tabular}[c]{@{}l@{}}We provide safe and affordable
 \end{tabular}
 \end{table}
 
-If we go into the provided web page for this company, we see that the title of the web page is ``Derma Secret Clinic | Cosmetic Beauty: Filler, Botox, Microneedling & More," and the description of the web page is  ``We provide safe and affordable cosmetic procedures from our locations in Mississauga and Waterloo. Face, Body, Hair We have beauty solutions so you can become the best you." Hence, by the web page's description, this company is doing cosmetics and not retailing bakeries; therefore, the provided NAICS label is incorrect. 
+If We go into the provided web page for this company, We see that the title of the web page is "Derma Secret Clinic | Cosmetic Beauty: Filler, Botox, Microneedling & More," and the description of the web page is  "We provide safe and affordable cosmetic procedures from our locations in Mississauga and Waterloo. Face, Body, Hair We have beauty solutions so you can become the best you." Hence, by the web page's description, this company is doing cosmetics and not retailing bakeries; therefore, the provided NAICS label is incorrect. 
       
-      \item ``The cleaning company"
+      \item The company:
 \begin{table}[h!]
 \begin{tabular}{|l|l|}
 \hline
@@ -661,30 +636,30 @@ Web page description & \begin{tabular}[c]{@{}l@{}}The Cleaning Company is one of
       So for this company, we believe its NAICS should be 561722 - Janitorial services (except window cleaning) as we see that the company is offering cleaning service in the description of the web page. So the provided NAICS 236110 residential building construction is incorrect. 
       
  \end{enumerate}
-We give 16 additional examples of corrected labels in figure ~\ref{fig:company_correct_label}. These examples show that we cannot rely entirely on the manual labels of the company's activity sector for the subsequent analytics. A more accurate labeling is required. Our automatic classification system could be used as a second labeling tool to check if some manual labels could be wrong, and require more verification. 
+We give 16 additional examples of corrected labels in figure ~\ref{fig:company_correct_label}:
  \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.6]{company_correction_list.PNG}}
   \caption{A list of Corrected labels by our program}
   \label{fig:company_correct_label}
 \end{figure} 
 
-\item  Next, the NAICS documents of version 2017v3 from the statistics Canada has missing labels. Several of the examples in the exclusion category has not been provided with true labelling. We show a few of them below. Each of the examples is shown in the comma separated format as ``Level,Code,Class Title,Element Type Label English,Element Description English". We were able to remove around 30 examples that we cannot find a true label. 
+\item  Next, the NAICS documents of version 2017v3 from the statistics Canada has missing labels. Several of the examples in the exclusion category has not been provided with true labelling. We will select a few of them. Each of the examples is shown in the comma separated format as "Level,Code,Class Title,Element Type Label English,Element Description English". We were able to remove around 30 examples that We cannot find a true label. 
  \begin{enumerate}
-     \item 5, 419110, ``Business-to-business electronic markets",Exclusion(s),acting as merchant wholesalers and bringing together buyers and sellers of goods using the Internet or a combination of electronic and traditional methods (classified according to the merchandise line or lines sold by the merchant wholesaler-distributor) 
+     \item 5,419110,Business-to-business electronic markets,Exclusion(s),acting as merchant wholesalers and bringing together buyers and sellers of goods using the Internet or a combination of electronic and traditional methods (classified according to the merchandise line or lines sold by the merchant wholesaler-distributor) 
 
-     \item 2, 419, ``Business-to-business electronic markets, and agents and brokers",Exclusion(s),buying and selling goods on own account using a combination of electronic and traditional methods (classified according to the merchandise line or lines sold by the merchant wholesaler-distributor) 
+     \item 2,419,"Business-to-business electronic markets, and agents and brokers",Exclusion(s),buying and selling goods on own account using a combination of electronic and traditional methods (classified according to the merchandise line or lines sold by the merchant wholesaler-distributor) 
      
-     \item 5, 332810, ``Coating, engraving, cold and heat treating and allied activities", Exclusion(s), "fabricating, coating and engraving products (classified in the manufacturing sector according to the product made) "
+     \item 5,332810,"Coating, engraving, cold and heat treating and allied activities",Exclusion(s),"fabricating, coating and engraving products (classified in the manufacturing sector according to the product made) "
      
-     \item 5, 334110, ``Computer and peripheral equipment manufacturing", ``Exclusion(s), manufacturing machinery or equipment that incorporate electronic computers for operation or control purposes and embedded control applications (other manufacturing industries based on the classification of the complete machinery or equipment)"
+     \item 5,334110,Computer and peripheral equipment manufacturing,Exclusion(s),manufacturing machinery or equipment that incorporate electronic computers for operation or control purposes and embedded control applications (other manufacturing industries based on the classification of the complete machinery or equipment) 
      
-     \item 5, 334110, ``Computer and peripheral equipment manufacturing", Exclusion(s), "manufacturing parts, such as casings, stampings, cable sets and switches, for computers and peripheral equipment (other manufacturing industries based on the associated production processes)"
+     \item 5,334110,Computer and peripheral equipment manufacturing,Exclusion(s),"manufacturing parts, such as casings, stampings, cable sets and switches, for computers and peripheral equipment (other manufacturing industries based on the associated production processes) "
      
-     \item 5, 454110, ``Electronic shopping and mail-order houses", Exclusion(s), ``store retailing or a combination of store retailing and Internet retailing of merchandise in the same establishment (classified to the store portion of the activity)"
+     \item 5,454110,Electronic shopping and mail-order houses,Exclusion(s),store retailing or a combination of store retailing and Internet retailing of merchandise in the same establishment (classified to the store portion of the activity) 
      
-     \item 5, 561210, ``Facilities support services", Exclusion(s), "providing a single support service to clients, but not the range of services that establishments in this industry provide (classified according to the service provided)"
+     \item 5,561210,Facilities support services,Exclusion(s),"providing a single support service to clients, but not the range of services that establishments in this industry provide (classified according to the service provided) "
      
-     \item 5, 621610, ``Home health care services", Exclusion(s), ``in-home health services provided by health practitioners primarily engaged in the independent practice of their profession (classified with the profession)" 
+     \item 5,621610,Home health care services,Exclusion(s),in-home health services provided by health practitioners primarily engaged in the independent practice of their profession (classified with the profession) 
      
 
 
@@ -703,25 +678,22 @@ We give 16 additional examples of corrected labels in figure ~\ref{fig:company_c
 A big challenge in web page classification is selecting the right information from the web page's content to feed into a classification model. It is challenging to have a more intelligent way to extract the right sentences from a web page relevant to the classification task. Hence this is an essential next step in developing a better web page classification algorithm.
 
 
-\section{Conclusion}
-This report describes the work we have done during an internship with Bivizio inc. The goal is to classify Canadian companies into their activity sectors. In this work, we explored companies in agri-food sector. To be able to classify companies, we need to collect more indormation from the web to complement the limited information we had at the beginning, i.e. company name and address. Therefore, we first developed a tool to scrap weg pages corresponding to companies. Then the contents of a web page is used to classify the company into NAICS classification system. Several classification models have been tested. The best performing model is the one based on word and sentence comparison between NAICS definition and the web page.
-
-In this work, we have addressed several challenges: %that we want to emphasize:
+\subsection{Conclusion}
+There are several points that We want to enphasis:
 \begin{enumerate}
-          \item The challenge in determining that a web page is that of the company is that we are only given the previous and current company names and previous and current company addresses. From this information, we needed to determine whether a web page is that of the company or not.  We observed that if the web page's contact information section contains the current company address or the previous company address, then we are very confident that the web page is that of the company. Based on random scrapped samples, the correctness of the model in getting the correct company web page for a given company is 93\%. After finding the web page for the company, we then proceed to scrape the web page's content and store this information in the school database. 
+          \item The challenge in determining that a web page is that of the company is that We are only given the previous and current company names and previous and current company addresses. From this information, We needed to determine whether a web page is that of the company or not.  We observed that if the web page's contact information section contains the current company address or the previous company address, then We are very confident that the web page is that of the company. Based on random scrapped samples, the correctness of the model in getting the correct company web page for a given company is 93\%. After finding the web page for the company, we then proceed to scrape the web page's content and store this information in the school database. 
           
-          \item   Our goal for the internship is to create a program to find the web pages of a federally incorporated company by doing a Google search of its name. Then we need to determine from the web page's information if the company is agri-food related or not. We have done both with very high success. Our classification model can differentiate agri-food company and no agri-food company successfully. Our best model construct keywords for each industry using TF-IDF and manually select additional keywords from web pages. Then we use the keywords to determine the two digit NAICS of the web page. 
+          \item   Our goal for the internship is to create a program to find the web pages of a federally incorporated company by doing a Google search of its name. Then We need to determine from the web page's information if the company is agri-food related or not. We have done both with very high success. Our classification model can differentiate agri-food company and no agri-food company successfully. Our best model construct keywords for each industry using TF-IDF and manually select additional keywords from web pages. Then we use the keywords to determine the two digit NAICS of the web page. 
      
-   % \item We also took the opportunity to do additional work by making a model that can recognize more industries.
-    \item Using all information on a web page, that includes the name of the company, the title of the web page, the description of the web page, the keywords of the web page, the content of the main page, the content of the about page, the content of product page and the content of the service page, to train a BERT text classification model will give an accuracy that can be further improved by selecting some key sentences to feed into the model. If instead of give to BERT the content of the main, about, product service page, we give to BERT the sentences that contains specific words such as the name of the company or "we" or "our", then the accuracy of the resulting trained model could improve by 3 percent.
+    \item We also took the opportunity to do additional work by making a model that can recognize more industries.
+    \item Using all information on a web page, that includes the name of the company, the title of the web page, the description of the web page, the keywords of the web page, the content of the main page, the content of the about page, the content of product page and the content of the service page, to train a BERT text classification model will give an accuracy that can be further improved by selecting some key sentences to feed into the model. If instead of give to BERT the content of the main, about, product service page, We give to BERT the sentences that contains specific words such as the name of the company or "we" or "our", then the accuracy of the resulting trained model could improve by 3 percent.
     
-        \item For our keywords method, if we simply use the NAICS Examples and keywords built using TF-IDF scoring from the NAICS definitions and examples, the accuracy of the resulting model is low as this rely on the capability of the model to understand a language. Instead, with the additional information of the labelled web pages, we can extract more meaningful manual keywords and that will help to increase the accuracy of the model. 
+        \item For our keywords method, if We simply use the NAICS Examples and keywords built using TF-IDF scoring from the NAICS definitions and examples, the accuracy of the resulting model is low as this rely on the capability of the model to understand a language. Instead, with the additional information of the labelled web pages, We can extract more meaningful manual keywords and that will help to increase the accuracy of the model. 
         
+        \item We have learned many valuable experiences during our internship. We have learned to do group research together, which made us more confident in working together and discussing ideas and accomplishing a task. 
 \end{enumerate}
 
-The tool developed in this internship has been used to assign classification codes to a large number of companies. This result will be further validated manually and exploited in subsequent projects to analyze the industry in agri-food sector. Without the result of this internship, it would be difficult to do it.
-
- We have learned many valuable experiences during our internship. We have learned to do group research together, which made us more confident in working together and discussing ideas and accomplishing a task. We have also acquired practical experience in using different classification models and deep learning methods. These latter will have a wide applicability in our future work.
+ 
 
 
 % \begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
@@ -740,32 +712,32 @@ The tool developed in this internship has been used to assign classification cod
 
 
 \section{Acknowledgement}
-We are fortunate to have as our supervisors professor Sandra Schillo and professor  Jian-Yun Nie. Throughout our internship, they provided helpful tricks and methods during our weekly meetings to our problems and helped us advance in the project. Equally, this project report could not have been done without their help. 
+We are fortunate to have as our supervisors professor Sandra Schillo and professor Nie Jian Yun. Throughout our internship, they provided helpful tricks and methods during our weekly meetings to our problems and helped us advance in the project. Equally, this project report could not have been done without their help. 
 
 \section{Appendix}
 \subsection{HTML}
-In order to explain how the scrapping program work, we will first explain what HTML is. To see how this work, we open a text editor and type the following codes in it:
+In order to explain how the scrapping program work, We will first explain what HTML is. To see how this work, We open a text editor and type the following codes in it:
 \begin{figure*}[h!]
   \centerline{\includegraphics[scale=1]{cap21.JPG}}
   \caption{HTML code}
   \label{fig:normal}
 \end{figure*}
 
-If we save the file with an extension .html and open the saved file using a web browser, we would get a web page that look like the following picture:
+If We save the file with an extension .html and open the saved file using a web browser, We would get a web page that look like the following picture:
 \begin{figure*}[h!]
   \centerline{\includegraphics[scale=1]{cap22.JPG}}
   \caption{HTML page example}
   \label{fig:normal}
 \end{figure*}
 
-A pair of enclosing $<name></name>$ for a text that looks like $<name>...some text...</name>$ is called a tag in the HTML language. As we see, the content inside the two tags of the form $<h1></h1>$ is rendered by the browser and the tags themselves are not show in the browser. They can come with a variety of properties that further tells the browser how the content of each tag should be displayed.  Each tag is used for a specific purpose, for example, the $<h1></h1>$ tag is telling the browser that the text in between the tags should be displayed to the user in bold or $<img></img>$ is telling the browser that there is an image that need to be displayed and is specified in the attributes of the tags. Namely, the displayed information on the web page lives insides tags in the HTML code and we need to tell a scrapping program which pair of tags， the information that we want resides, in order for the scrapping program to get that information for us. In HTML code, Always, we have the $<head></head>$ and $<body></body>$ tags that is enclosed by the $<html></html>$ tags. What we are most interested is the $<a>$ tag, the $<meta>$ tag and the $<title>$ tags. We explain the functionality of each of the tags one by one using the Strauss Feed web page example that can be accessed using at \href{https://www.straussfeeds.com}{\textcolor{blue}{this URL address}}. With modern day web browsers, it is possible that the the HTML source code of the web page can be examined by right click on the web page and click on inspect. We provide an example of getting the source code of a web page on the Edge web browser as shown on Figure ~\ref{fig:4}:
+A pair of enclosing $<name></name>$ for a text that looks like $<name>...some text...</name>$ is called a tag in the HTML language. As We see, the content inside the two tags of the form $<h1></h1>$ is rendered by the browser and the tags themselves are not show in the browser. They can come with a variety of properties that further tells the browser how the content of each tag should be displayed.  Each tag is used for a specific purpose, for example, the $<h1></h1>$ tag is telling the browser that the text in between the tags should be displayed to the user in bold or $<img></img>$ is telling the browser that there is an image that need to be displayed and is specified in the attributes of the tags. Namely, the displayed information on the web page lives insides tags in the HTML code and We need to tell a scrapping program which pair of tags， the information that We want resides, in order for the scrapping program to get that information for us. In HTML code, Always, We have the $<head></head>$ and $<body></body>$ tags that is enclosed by the $<html></html>$ tags. What We are most interested is the $<a>$ tag, the $<meta>$ tag and the $<title>$ tags. We explain the functionality of each of the tags one by one using the Strauss Feed web page example that can be accessed using at \href{https://www.straussfeeds.com}{\textcolor{blue}{this URL address}}. With modern day web browsers, it is possible that the the HTML source code of the web page can be examined by right click on the web page and click on inspect. We provide an example of getting the source code of a web page on the Edge web browser as shown on Figure ~\ref{fig:4}:
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.3]{cap23.png}}
   \caption{HTML page example}
   \label{fig:4}
 \end{figure}
 
-Once we do, the user interface of the Edge web browser will be split into two halves left and right with one half containing information about the web pages. In that half, we can also see the source code of the web page as shown in Figure ~\ref{fig:5}::
+Once We do, the user interface of the Edge web browser will be split into two halves left and right with one half containing information about the web pages. In that half, We can also see the source code of the web page as shown in Figure ~\ref{fig:5}::
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.35]{cap24.JPG}}
   \caption{HTML page example with source code displayed}
@@ -774,16 +746,16 @@ Once we do, the user interface of the Edge web browser will be split into two ha
 
 
 \begin{enumerate}
-    \item The $<a>$ tag is used to put a hyperlink to link to other web pages. For example, if we want to let the user be able to click on the text ="link" to navigate to the URL Google.com, we can write $<a href ="https://www.google.com">text</a>$. It will be rendered by the browser as clickable text that will redirect the user to Google.com upon clicking on it. We are interested in this tag because of the different pages such as the about page or the contact page of the website. 
+    \item The $<a>$ tag is used to put a hyperlink to link to other web pages. For example, if We want to let the user be able to click on the text ="link" to navigate to the URL Google.com, We can write $<a href ="https://www.google.com">text</a>$. It will be rendered by the browser as clickable text that will redirect the user to Google.com upon clicking on it. We are interested in this tag because of the different pages such as the about page or the contact page of the website. 
     
-    \item The $<meta>$ tag is usually inside the $<head>$ tag and will contain useful information about the web page that we can use to do industry classification. Consider the HTML source code of the Strauss Feed web page in figure ~\ref{fig:5}, we can see that there is a meta tag with the name  equals to "description" in the highlighted code. The content of the tag can be seen in fig ~\ref{fig:7}
+    \item The $<meta>$ tag is usually inside the $<head>$ tag and will contain useful information about the web page that We can use to do industry classification. Consider the HTML source code of the Strauss Feed web page in figure ~\ref{fig:5}, We can see that there is a meta tag with the name  equals to "description" in the highlighted code. The content of the tag can be seen in fig ~\ref{fig:7}
     \begin{figure}[h!]
       \centerline{\includegraphics[scale=0.5]{cap27.JPG}}
       \caption{meta tag of Strauss feed web page}
       \label{fig:7}
     \end{figure}
     
-    \item The $<title>$ tag resides in the $<head>$ tag section of the HTML code and will give a title to the web page. This is helpful for industry classification as the title can be indicative of the kind of business the web page is promoting. The title can be seen in the browser as the text displayed on the tab for that web page. It suffices to hover the mouse over the tab for the web page to see the information displayed on the tab. In the Strauss feed web page example, the title can be seen as "Strauss Feeds - Quality Milk Replacers for Infant Animals" as we can see in figure ~\ref{fig:6} 
+    \item The $<title>$ tag resides in the $<head>$ tag section of the HTML code and will give a title to the web page. This is helpful for industry classification as the title can be indicative of the kind of business the web page is promoting. The title can be seen in the browser as the text displayed on the tab for that web page. It suffices to hover the mouse over the tab for the web page to see the information displayed on the tab. In the Strauss feed web page example, the title can be seen as "Strauss Feeds - Quality Milk Replacers for Infant Animals" as We can see in figure ~\ref{fig:6} 
     \begin{figure}[h!]
       \centerline{\includegraphics[scale=0.35]{cap26.png}}
       \caption{HTML page example with title displayed}
@@ -792,8 +764,8 @@ Once we do, the user interface of the Edge web browser will be split into two ha
     
 \end{enumerate}
 \subsection{Internet protocol}
-Now that we have a basic understanding of HTML and saw how a browser can be used to render the HTML code of a web page, we proceed to explain the basics of internet and how a python program could be used to fetch the content of a web page on the Internet. As we see previously, a company web page that is rendered by the browser is a HTML file containing HTML codes. This file resides on the company's computer. The company computer that store the files that is accessible on the internet is called a server. Then the entire process of viewing a web page can be thought of as a user makes a request to a server for a specific file and the server send that file to the intended recipient. How those files are transmitted to the correct destination and how to request the desired server for the particular file is what internet protocol is for. 
-To illustrate, we can see the flow of data with the web browser's integrated package capturing tools. This can be viewed in the same way to look for a web page source code. We can see the different requests that the computer has made to the server in the network tag when inspecting a web page and we can take a look at figure~\ref{fig:13}.
+Now that We have a basic understanding of HTML and saw how a browser can be used to render the HTML code of a web page, We proceed to explain the basics of internet and how a python program could be used to fetch the content of a web page on the Internet. As We see previously, a company web page that is rendered by the browser is a HTML file containing HTML codes. This file resides on the company's computer. The company computer that store the files that is accessible on the internet is called a server. Then the entire process of viewing a web page can be thought of as a user makes a request to a server for a specific file and the server send that file to the intended recipient. How those files are transmitted to the correct destination and how to request the desired server for the particular file is what internet protocol is for. 
+To illustrate, We can see the flow of data with the web browser's integrated package capturing tools. This can be viewed in the same way to look for a web page source code. We can see the different requests that the computer has made to the server in the network tag when inspecting a web page and We can take a look at figure~\ref{fig:13}.
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.38]{cap35.JPG}}
   \caption{Network tab of web page inspection}
@@ -812,7 +784,7 @@ In the headers section of the request, there is a field called "user-agent", thi
 
 
 \subsection{transformer}
-In this section, we will explain the architecture of the transformer model. Its architecture can be views in the figure ~\ref{fig:13} that we borrowed from the transformer paper \cite{Tverberg:1966tb} itself.
+In this section, We will explain the architecture of the transformer model. Its architecture can be views in the figure ~\ref{fig:13} that We borrowed from the transformer paper \cite{Tverberg:1966tb} itself.
 
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.6]{1_JuGZaZcRtmrtCEPY8qfsUw.png}}
@@ -820,7 +792,7 @@ In this section, we will explain the architecture of the transformer model. Its 
   \label{fig:13}
 \end{figure}
 
-The model consists of a encoder with several layers of multi-head attention computation and a decoder of with several layers of multi-head attention computation. The transformer model is the basis of the more recent state of the arts natural language model and understanding its inner working would help us understand the more recent natural language model. We will use an example to illustrate the flow of a sentence through the model's encoder. Suppose we have a sentence "The dog is sleeping", each words in the sentence is first transformed into a vector $x_{the},x_{dog},x_{is},x_{sleeping}$. and each of the transformed vector will be multiplied by three matrices $W^Q,W^K,W^V$ to get matrices $x_{the,Q},x_{the,K},x_{the,V}...$. We can stack the vectors into matrices $Q,K,V$ as shown in figure ~\ref{fig:10}. 
+The model consists of a encoder with several layers of multi-head attention computation and a decoder of with several layers of multi-head attention computation. The transformer model is the basis of the more recent state of the arts natural language model and understanding its inner working would help us understand the more recent natural language model. We will use an example to illustrate the flow of a sentence through the model's encoder. Suppose We have a sentence "The dog is sleeping", each words in the sentence is first transformed into a vector $x_{the},x_{dog},x_{is},x_{sleeping}$. and each of the transformed vector will be multiplied by three matrices $W^Q,W^K,W^V$ to get matrices $x_{the,Q},x_{the,K},x_{the,V}...$. We can stack the vectors into matrices $Q,K,V$ as shown in figure ~\ref{fig:10}. 
 
 \begin{figure}[h!]
   \centerline{\includegraphics[scale=0.6]{cap31.JPG}}
@@ -828,8 +800,8 @@ The model consists of a encoder with several layers of multi-head attention comp
   \label{fig:10}
 \end{figure}
 
-There are three vectors that we associate with each word like the $x_{the,Q},x_{the,K},x_{the,V}$ that we computed above. There are referred to as the query, key and value vector for that word.
-Next, we need to compute the self attention with the computed matrices. The idea of self attention is to give a numerical meaning to the relationship between words in a sentence. For each word, we want to compute its relation with every other words in the sentence. We do so by taking a weighted sum of the value vectors for every words in the sentence. And the weight will be calculated by the dot product of the query vector of the word with the key vectors of every words. We first take a look the the matrix computation in figure ~\ref{fig:11}. 
+There are three vectors that We associate with each word like the $x_{the,Q},x_{the,K},x_{the,V}$ that We computed above. There are referred to as the query, key and value vector for that word.
+Next, We need to compute the self attention with the computed matrices. The idea of self attention is to give a numerical meaning to the relationship between words in a sentence. For each word, We want to compute its relation with every other words in the sentence. We do so by taking a weighted sum of the value vectors for every words in the sentence. And the weight will be calculated by the dot product of the query vector of the word with the key vectors of every words. We first take a look the the matrix computation in figure ~\ref{fig:11}. 
 
 \begin{figure}[h!]
   \includegraphics[width=13cm]{cap33.JPG}
@@ -837,7 +809,7 @@ Next, we need to compute the self attention with the computed matrices. The idea
   \label{fig:11}
 \end{figure}
 
-In the figure, the first row of the matrix $Z$ represent the weighted sum of the value vectors of all words in the sentences. And the weight can be clearly seen as the soft-max of quotient of the product of the row in the query matrix representing the word with the key matrix by the square-root of the dimension of the query vector. The matrix $Z$ is the result of one computation of self attention. Self attention is the term used for this computation of relationship between the words in the sentence. In multi-headed attention, we would have more than one computation of self attention and so there would be more than one set of matrices $(W^Q, W^K, W^T)$. So if we had 8 heads attention, we would compute 8 matrices $Z_1,...,Z_8$. After we computed all the $Z_i$ matrices, we can stack them and feed them into a linear transformation to get a matrix $Z$ that has the same dimension as the input matrix $X$. We can add $Z$ and $X$ and do a layer normalization and feed the result into a linear transformation again to produce the final output of one layer of the encoder of the transformer.  These steps are illustrated in figure~\ref{fig:12}.
+In the figure, the first row of the matrix $Z$ represent the weighted sum of the value vectors of all words in the sentences. And the weight can be clearly seen as the soft-max of quotient of the product of the row in the query matrix representing the word with the key matrix by the square-root of the dimension of the query vector. The matrix $Z$ is the result of one computation of self attention. Self attention is the term used for this computation of relationship between the words in the sentence. In multi-headed attention, We would have more than one computation of self attention and so there would be more than one set of matrices $(W^Q, W^K, W^T)$. So if We had 8 heads attention, We would compute 8 matrices $Z_1,...,Z_8$. After We computed all the $Z_i$ matrices, We can stack them and feed them into a linear transformation to get a matrix $Z$ that has the same dimension as the input matrix $X$. We can add $Z$ and $X$ and do a layer normalization and feed the result into a linear transformation again to produce the final output of one layer of the encoder of the transformer.  These steps are illustrated in figure~\ref{fig:12}.
 \begin{figure}[h!]
   \includegraphics[width=13cm]{cap34.JPG}
   \caption{Transformer word flow part 3}
@@ -894,7 +866,7 @@ We have now the flow of a sentence through the encoder of the transformer. We wr
 \subsection{MPnet}
 MPnet is introduced by  Song et.al to deal with the shortcoming of BERT and its successor XLnet by combining the best of both models. The masked language modelling objective of BERT doesn't take into account the relation between masked words. Hence XLnet is pretrainined using the permuted language modelling to deal with this shortcoming of BERT. However, the permuted language modelling has the problem that the token cannot see the positional information of the whole sentence. Then MPnet unified both training objective under the name masked and permuted language modelling. 
 
-Here is the idea of masked and permuted language modelling.  Consider a sequence of length $6$, $(x_1,x_2,x_3,x_4,x_5,x_6)$. We pick a random permutation of the sequence say $z=(1,3,5,4,6,2)$ and rearrange the sequence according to this permutation to get the sequence $(x_1,x_3,x_5,x_4,x_6,x_2)$. We choose a length for the non-predict part say $c= 3$ and denote the non-predict part of the sequence by $ x_{z<c}=(x_1,x_3,x_5)$ and the predict part by $x_{z>c}=(x_4,x_6,x_2)$. Then we create a new input tokens by adding masks right before the predicted part to get $(x_{z<=c}, M_{z>c}, x_{z>c}) = (x_1,x_3,x_5,[M],[M],[M],x_4,x_6,x_2)$ 
+Here is the idea of masked and permuted language modelling.  Consider a sequence of length $6$, $(x_1,x_2,x_3,x_4,x_5,x_6)$. We pick a random permutation of the sequence say $z=(1,3,5,4,6,2)$ and rearrange the sequence according to this permutation to get the sequence $(x_1,x_3,x_5,x_4,x_6,x_2)$. We choose a length for the non-predict part say $c= 3$ and denote the non-predict part of the sequence by $ x_{z<c}=(x_1,x_3,x_5)$ and the predict part by $x_{z>c}=(x_4,x_6,x_2)$. Then We create a new input tokens by adding masks right before the predicted part to get $(x_{z<=c}, M_{z>c}, x_{z>c}) = (x_1,x_3,x_5,[M],[M],[M],x_4,x_6,x_2)$ 
 
 \subsection{Scrapping Code}
 \begin{mintedbox}{python}
@@ -1665,7 +1637,7 @@ Now that MongoDB is setup. We will install MongoDB compass to have a graphic use
   \label{fig:mongo_compass}
 \end{figure}
 
-The MongoDB compass will be launched and after clicking through the introduction messages, we will arrive at an interface as shown ~\ref{fig:mongo_compass_start}
+The MongoDB compass will be launched and after clicking through the introduction messages, We will arrive at an interface as shown ~\ref{fig:mongo_compass_start}
 
 \begin{figure}[h!]
   \includegraphics[width=13cm]{mongo_compass_start.PNG}
@@ -1673,7 +1645,7 @@ The MongoDB compass will be launched and after clicking through the introduction
   \label{fig:mongo_compass_start}
 \end{figure}
 
-Click on the New Connection tab on the left panel of the GUI, then select Fill in connection fields individually. Then leave everything as default and then connect. Once connected, there will be a local database in which we can create a new collection as shown in the image:~\ref{fig:mongo_create_db}
+Click on the New Connection tab on the left panel of the GUI, then select Fill in connection fields individually. Then leave everything as default and then connect. Once connected, there will be a local database in which We can create a new collection as shown in the image:~\ref{fig:mongo_create_db}
 \begin{figure}[h!]
   \includegraphics[width=13cm]{mongo_create_db.PNG}
   \caption{Creating a database using MongoDB}
